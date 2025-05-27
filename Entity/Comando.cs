@@ -6,15 +6,15 @@ namespace ComandoGame.Entity
     }
     internal class Comando
     {
-        string Name;
-        int Id;
-        string[] Tools;
-        StatusEnum Status;
+        public string Name;
+        public string CodeName {get; set;}
+        public string[] Tools;
+        public StatusEnum Status;
 
-        public Comando(string name, int id, StatusEnum status)
+        public Comando(string name, string codeName, StatusEnum status)
         {
             this.Name = name;
-            this.Id = id;
+            this.CodeName = codeName;
             this.Tools = ["hammer","chisel","rope","bag","water","bottle"];
             this.Status = status;
         }
@@ -36,23 +36,32 @@ namespace ComandoGame.Entity
 
         public void Hide()
         {
-            if (this.Status == StatusEnum.WOLKING)
-            {
-                this.Status = StatusEnum.HIDING;
-            }
-            else if (this.Status == StatusEnum.STANDING)
-            {
-                this.Status = StatusEnum.HIDING;
-            }
-            Console.WriteLine(this.Status);
-            return;
+            this.Status = StatusEnum.HIDING;
+        Console.WriteLine(this.Status);
         }
 
-        public void Attack()
+        public virtual void Attack()
         {
             Console.WriteLine(this.Name);
         }
-        
+
+        public string SayName(string commanderRank)
+        {
+            if (commanderRank == "GENERAL")
+            {
+                return this.Name;
+            }
+            else if (commanderRank == "COLONEL")
+            {
+                return this.CodeName;
+            }
+            else
+            {
+                return "classified information";
+            }
+            
+            
+        }
         
     
     
